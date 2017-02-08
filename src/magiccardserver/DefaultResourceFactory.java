@@ -1,5 +1,6 @@
 package magiccardserver;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -26,5 +27,10 @@ public class DefaultResourceFactory {
     {
         Scanner s = new Scanner(getClass().getResourceAsStream(resourceName)).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
+    }
+
+    public InputStream getInputStream(final String resourceName)
+    {
+        return getClass().getResourceAsStream(resourceName);
     }
 }
