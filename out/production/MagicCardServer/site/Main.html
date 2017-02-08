@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MTG Noodle</title>
-    <script type="text/javascript">
-        function loadPage(name)
-        {
-            var htmlRequest = new XMLHttpRequest();
-            htmlRequest.onreadystatechange = function() {
-                if (htmlRequest.readyState == 4 && htmlRequest.status == 200)
-                    document.getElementById('content').innerHTML = htmlRequest.responseText;
-            }
-            htmlRequest.open("GET", name + ".html", true);
-            htmlRequest.send(null);
-
-            var jsRequest = new XMLHttpRequest();
-            jsRequest.onreadystatechange = function() {
-                if (jsRequest.readyState == 4 && jsRequest.status == 200) {
-                    var script_tag = document.createElement('script');
-                    script_tag.type = 'text/javascript';
-                    script_tag.text = jsRequest.responseText;
-                    script_tag.id = "pageScript";
-                    document.body.appendChild(script_tag);
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+        <meta charset="UTF-8">
+        <title>MTG Noodle</title>
+        <script type="text/javascript">
+            function loadPage(name)
+            {
+                if (document.getElementById('pageScript')) {
+                    deloadPage();
+                    var element = document.getElementById('pageScript');
+                    element.outerHTML = "";
+                    delete element;
                 }
+
+
+                var htmlRequest = new XMLHttpRequest();
+                htmlRequest.onreadystatechange = function() {
+                    if (htmlRequest.readyState == 4 && htmlRequest.status == 200)
+                        document.getElementById('content').innerHTML = htmlRequest.responseText;
+                }
+                htmlRequest.open("GET", name + ".html", true);
+                htmlRequest.send(null);
+
+                var jsRequest = new XMLHttpRequest();
+                jsRequest.onreadystatechange = function() {
+                    if (jsRequest.readyState == 4 && jsRequest.status == 200) {
+                        var script_tag = document.createElement('script');
+                        script_tag.type = 'text/javascript';
+                        script_tag.text = jsRequest.responseText;
+                        script_tag.id = "pageScript";
+                        document.body.appendChild(script_tag);
+                    }
+                }
+                jsRequest.open("GET", name + ".js", true);
+                jsRequest.send(null);
             }
-            jsRequest.open("GET", name + ".js", true);
-            jsRequest.send(null);
-        }
-    </script>
-</head>
-<body onload="loadPage('HelloWorld')">
-    <div id="content"></div>
-</body>
+        </script>
+    </head>
+    <body onload="loadPage('HelloWorld')">
+        <div id="content"></div>
+    </body>
 </html>
