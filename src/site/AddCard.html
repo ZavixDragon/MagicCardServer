@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>MTG Noodle</title>
+        <script type="text/javascript" src="AddCard.js"/>
+    </head>
+    <body>
+        <select id="add-type" onchange="AddType()">
+            <option value="default"> - </option>
+            <option value="creature">Creature</option>
+            <option value="sorcery">Sorcery</option>
+            <option value="instant">Instant</option>
+            <option value="land">Land</option>
+            <option value="basic-land">Basic Land</option>
+        </select>
+        <ul id="types">
+
+        </ul>
+        <input type="text" placeholder="Name"/>
+        <div>
+
+        </div>
+        <select>
+            <option value="common">Common</option>
+            <option value="uncommon">Uncommon</option>
+            <option value="rare">Rare</option>
+            <option value="mythic-rare">Mythic Rare</option>
+        </select>
+
+
+    </body>
+</html>

@@ -1,0 +1,11 @@
+div.container {
+    height: 10em;
+    position: relative }
+div.container p {
+    margin: 0;
+    position: absolute;
+    font-size: 500%;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
