@@ -1,55 +1,61 @@
 class Component {
     constructor() {
-        this.id = generateId();
-        this.initialized = false;
+        let id = generateId();
+        this.getId = () => id;
+        this.isInitialized = () => false;
     }
 
     initialize() {
-        if (this.initialized)
+        if (this.isInitialized())
             throw "This component has already been initialized";
-        this.initialized = true;
+        this.isInitialized = () => true;
     }
 }
 
 class Collection extends Component {
     constructor(contents = []) {
         super();
-        this.contents = contents;
+        this.getContents = () => contents;
+    }
+
+    initialize() {
+        super.initialize();
     }
 
     getById(id) {
-        for (let i = 0; i < this.contents.length; i++)
-            if (this.contents[i].id === id)
-                return this.contents[i];
+        for (let i = 0; i < this.getContents().length; i++)
+            if (this.getContents()[i].getId() === id)
+                return this.getContents()[i];
         throw "No element with the id ${id} found";
     }
 
     add(item) {
-        this.contents.add(item);
-        if (super.initialized)
-            document.getElementById(super.id).appendChild(item.initialize());
+        this.getContents().push(item);
+        if (this.isInitialized())
+            document.getElementById(this.getId()).appendChild(item.initialize());
     }
 
     remove(item) {
-        this.contents = this.contents.filter(x => x.id !== item.id);
-        if (super.initialized)
-            document.getElementById(super.id).removeChild(document.getElementById(item.id));
+        let contents = this.getContents().filter(x => x.id !== item.id);
+        this.getContents = () => contents;
+        if (this.isInitialized())
+            document.getElementById(this.getId()).removeChild(document.getElementById(item.getId()));
     }
 }
 
 class List extends Collection {
     constructor(contents = [], style = "") {
         super(contents);
-        this.style = style;
+        this.getStyle = () => style;
     }
 
     initialize() {
         super.initialize();
         let list = document.createElement('ul');
-        list.id = this.id;
-        list.className = this.style;
-        for (var i = 0; i < this.contents.length; i++)
-            list.appendChild(this.contents[i].initialize());
+        list.id = this.getId();
+        list.className = this.getStyle();
+        for (var i = 0; i < this.getContents().length; i++)
+            list.appendChild(this.getContents()[i].initialize());
         return list;
     }
 }
@@ -57,16 +63,16 @@ class List extends Collection {
 class ListItem extends Component {
     constructor(content = new Text(), style = "") {
         super();
-        this.content = content;
-        this.style = style;
+        this.getContent = () => content;
+        this.getStyle = () => style;
     }
 
     initialize() {
         super.initialize();
         let listItem = document.createElement('li');
-        listItem.id = this.id();
-        listItem.className = this.style;
-        listItem.innerHTML = this.content.initialize();
+        listItem.id = this.getId();
+        listItem.className = this.getStyle();
+        listItem.appendChild(this.getContent().initialize());
         return listItem;
     }
 }
@@ -75,17 +81,17 @@ class Button extends Component {
     constructor(onPress = () => {}, content = new Text(), style = "") {
         super();
         this.onPress = onPress;
-        this.content = content;
-        this.style = style;
+        this.getContent = () => content;
+        this.getStyle = () => style;
     }
 
     initialize() {
         super.initialize();
         let button = document.createElement('button');
-        button.id = this.id;
-        button.className = this.style;
-        button.innerHTML = this.content.initialize();
-        button.onclick = this.onPress();
+        button.id = this.getId();
+        button.className = this.getStyle();
+        button.appendChild(this.getContent().initialize());
+        button.onclick = () => this.onPress();
         return button;
     }
 }
@@ -93,17 +99,17 @@ class Button extends Component {
 class ComboBox extends Collection {
     constructor(contents = [], style = "") {
         super(contents);
-        this.style = style;
+        this.getStyle = () => style;
     }
 
     initialize() {
         super.initialize();
         let comboBox = document.createElement('select');
-        comboBox.id = this.id;
-        comboBox.className = this.style;
-        for (let i = 0; i < this.contents.length; i++)
-            comboBox.appendChild(this.contents[i].initialize());
-        comboBox.addEventListener('onchange', () => this.getById(document.getElementById(this.id).value).select());
+        comboBox.id = this.getId();
+        comboBox.className = this.getStyle();
+        for (let i = 0; i < this.getContents().length; i++)
+            comboBox.appendChild(this.getContents()[i].initialize());
+        comboBox.onchange = () => { console.log("event on change fired"); this.getById(document.getElementById(this.getId()).value).select(); };
         return comboBox;
     }
 }
@@ -112,17 +118,17 @@ class Option extends Component {
     constructor(onSelect = () => {}, content = new Text(), style = "") {
         super();
         this.onSelect = onSelect;
-        this.content = content;
-        this.style = style;
+        this.getContent = () => content;
+        this.getStyle = () => style;
     }
 
     initialize() {
         super.initialize();
         let option = document.createElement("option");
-        option.id = this.id;
-        option.style = this.style;
-        option.appendChild(this.content.initialize());
-        option.value = this.id;
+        option.id = this.getId();
+        option.style = this.getStyle();
+        option.appendChild(this.getContent().initialize());
+        option.value = this.getId();
         return option;
     }
 
@@ -134,10 +140,10 @@ class Option extends Component {
 class Text extends Component {
     constructor(text = "") {
         super();
-        this.text = text;
+        this.getText = () => text;
     }
 
     initialize() {
-        return document.createTextNode(this.text);
+        return document.createTextNode(this.getText());
     }
 }
