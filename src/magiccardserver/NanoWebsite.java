@@ -50,6 +50,7 @@ public class NanoWebsite {
             int extensionIndex = uri.lastIndexOf('.');
             if (extensionIndex == -1)
                 uri += ".html";
+            System.out.println(uri);
             return uri;
         }
     }

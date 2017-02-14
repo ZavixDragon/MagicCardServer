@@ -1,24 +1,17 @@
-class ListItem {
-    constructor(content) {
-        this.content = content;
-    }
+var nextId = 0;
 
-    get() {
-        return "<li>${content.get()}</li>";
-    }
+function generateId() {
+    nextId++;
+    return "AddCard - " + nextId;
 }
 
-class Button {
-    constructor(content, action) {
-        this.content = content;
-        this.action = action;
-    }
+function addCardInit() {
+    let typeList = new List();
+    let blankOption = new Option(() => {}, new Text("-"));
+    let creatureOption = new Option(() => typeList.add(new Button(() => typeList.remove(this), "Creature")), new Text("Creature"))
+    let types = new ComboBox([blankOption, creatureOption]);
 
-    get() {
-        var button = document.createElement('button');
-        button.innerHTML = content.get();
-        button.onclick = action();
-        return element.outerHTML;
-    }
+    document.body.appendChild(types.initialize());
+    document.body.appendChild(typeList.initialize());
 }
 
