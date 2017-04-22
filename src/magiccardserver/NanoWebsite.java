@@ -6,14 +6,17 @@ import java.util.function.Function;
 
 public class NanoWebsite {
     private final HttpServer server;
-    private String siteResourcePath;
-    private String pageNotFoundPage;
+    private final String siteResourcePath;
+    private final String pageNotFoundPage;
+    private final Map<String, Controller> controllers;
 
-    public NanoWebsite(int port, String siteResourcePath, String pageNotFoundPage) {
+    public NanoWebsite(int port, String siteResourcePath, String pageNotFoundPage, Controller... controllers) {
         server = new HttpServer(port);
         server.setServeFunction(this::serve);
         this.siteResourcePath = siteResourcePath;
         this.pageNotFoundPage = pageNotFoundPage;
+        this.controllers = new HashMap();
+        Arrays.stream(controllers).forEach(x -> this.controllers.put(x.getDomain(), x));
     }
 
     public void start() {
@@ -26,9 +29,17 @@ public class NanoWebsite {
 
     private NanoHTTPD.Response serve(NanoHTTPD.IHTTPSession session) {
         String uri = new ExtractedUri(session).get();
+        System.out.println(uri);
+        String controllerName = uri.split("/")[1];
+        return controllers.containsKey(controllerName)
+                ? NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, "text/html", controllers.get(controllerName).serve(uri))
+                : NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, new MimeType(uri).get(), loadResource(uri));
+    }
+
+    private InputStream loadResource(String uri) {
         if (new Resource(siteResourcePath + uri).get() == null)
             uri = new ExtractedUri(pageNotFoundPage).get();
-        return NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, new MimeType(uri).get(), new Resource(siteResourcePath + uri).get());
+        return new Resource(siteResourcePath + uri).get();
     }
 
     private final class ExtractedUri {
@@ -47,10 +58,6 @@ public class NanoWebsite {
                 uri = "/" + uri;
             if (uri.charAt(uri.length() - 1) == '/')
                 uri += "Index.html";
-            int extensionIndex = uri.lastIndexOf('.');
-            if (extensionIndex == -1)
-                uri += ".html";
-            System.out.println(uri);
             return uri;
         }
     }
@@ -118,7 +125,6 @@ public class NanoWebsite {
             put("aps","application/mime");
             put("arc","application/octet-stream");
             put("arj","application/arj");
-            put("arj","application/octet-stream");
             put("art","image/x-jg");
             put("asf","video/x-ms-asf");
             put("asm","text/x-asm");
@@ -588,6 +594,7 @@ public class NanoWebsite {
             put("svr","application/x-world");
             put("svr","x-world/x-svr");
             put("swf","application/x-shockwave-flash");
+            put("svg","image/svg+xml");
             put("t","application/x-troff");
             put("talk","text/x-speech");
             put("tar","application/x-tar");

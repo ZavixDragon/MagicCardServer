@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shadow Over Ravnica</title>
+        <link rel="stylesheet" type="text/css" href="../Index.css">
+        <link rel="stylesheet" type="text/css" href="../Default.css">
+        <script type="text/javascript" src="../JOOcyScript.js"></script>
+        <script type="text/javascript" src="../Resources.js"></script>
+        <script type="text/javascript" src="../Database.js"></script>
+        <script type="text/javascript" src="../Default.js"></script>
+
+        <script type="text/javascript" src="../Filters/AuthorFilter.js"></script>
+        <script type="text/javascript" src="../Filters/CMCFilter.js"></script>
+        <script type="text/javascript" src="../Filters/ColorFilter.js"></script>
+        <script type="text/javascript" src="../Filters/TypeFilter.js"></script>
+        <script type="text/javascript" src="../Filters/SubtypeFilter.js"></script>
+        <script type="text/javascript" src="../Filters/SearchFilter.js"></script>
+        <script type="text/javascript" src="../Index.js"></script>
+    </head>
+    <body onload="onIndexLoad()">
+        <div class="flex-container-row flex-left" id="header"></div>
+        <div class="flex-container-row flex-left flex-align-left">
+            <div class="flex-item flex-container-column flex-left dark-border">
+                <label>Filters</label>
+                <div class="flex-item flex-container-row" id="search">
+                    <label>Search:</label>
+                </div>
+                <div class="flex-item flex-container-row" id="cmc">
+                    <label>Converted Mana Cost:</label>
+                </div>
+                <div class="flex-item flex-container-row" id="colors">
+                    <label>Colors:</label>
+                </div>
+                <div class="flex-item flex-container-row flex-left" style="width: 290px" id="type">
+                    <label>Types:</label>
+                </div>
+                <div class="flex-item flex-container-row" id="subtype">
+                    <label>Subtype:</label>
+                </div>
+                <div class="flex-item flex-container-row" id="author">
+                    <label>Author:</label>
+                </div>
+            </div>
+            <div class="flex-item" id="cards"></div>
+        </div>
+    </body>
+</html>

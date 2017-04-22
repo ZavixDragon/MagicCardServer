@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shadow Over Ravnica</title>
+        <link rel="stylesheet" type="text/css" href="../Edit/EditCard.css">
+        <link rel="stylesheet" type="text/css" href="../Default.css">
+        <script type="text/javascript" src="../JOOcyScript.js"></script>
+        <script type="text/javascript" src="../Resources.js"></script>
+        <script type="text/javascript" src="../Database.js"></script>
+        <script type="text/javascript" src="../Default.js"></script>
+
+        <script type="text/javascript" src="../Edit/EditName.js"></script>
+        <script type="text/javascript" src="../Edit/EditCost.js"></script>
+        <script type="text/javascript" src="../Edit/EditTypes.js"></script>
+        <script type="text/javascript" src="../Edit/EditStats.js"></script>
+        <script type="text/javascript" src="../Edit/EditSubtypes.js"></script>
+        <script type="text/javascript" src="../Edit/EditText.js"></script>
+        <script type="text/javascript" src="../Edit/EditImage.js"></script>
+        <script type="text/javascript" src="../Edit/EditAuthor.js"></script>
+        <script type="text/javascript" src="../Edit/EditRarity.js"></script>
+        <script type="text/javascript" src="../Edit/EditLoyalty.js"></script>
+        <script type="text/javascript" src="../Edit/EditCard.js"></script>
+    </head>
+    <body onload="editCardOnLoad('none')">
+        <div class="flex-container-row flex-left" id="header"></div>
+        <div class="flex-container-row">
+            <div class="flex-container-row flex-align-left dark-border">
+                <div class="flex-container-column">
+                    <div class="flex-container-row flex-left lightweight-border" id="author">
+                        <label class="flex-item">Author:</label>
+                    </div>
+                    <div class="flex-container-row flex-left lightweight-border" id="name">
+                        <label class="flex-item">Card Name:</label>
+                    </div>
+                    <div class="flex-container-row">
+                        <div class="flex-container-row lightweight-border" id="stats"></div>
+                        <div class="flex-container-row lightweight-border" id="loyalty">
+                            <label class="flex-item">Loyalty:</label>
+                        </div>
+                    </div>
+                    <div class="flex-container-row flex-left lightweight-border" style="width: 750px">
+                        <div class="flex-item">
+                            <label class="flex-item">Cost:</label>
+                            <div class="border flex-item" id="cost"></div>
+                        </div>
+                        <div class="flex-item">
+                            <label class="flex-item">Click To Add:</label>
+                            <div class="border flex-item" id="costOptions"></div>
+                        </div>
+                    </div>
+                    <div class="flex-container-row lightweight-border flex-left" style="width: 750px">
+                        <label class="flex-item">Text:</label>
+                        <div id="textArea"></div>
+                        <label class="flex-item">Click To Add:</label>
+                        <div class="border flex-item" style="width: 735px" id="additions">
+                        </div>
+                    </div>
+                    <div class="flex-container-row flex-align-left">
+                        <div class="flex-container-row flex-align-left lightweight-border" id="types">
+                            <div class="flex-container-column flex-center list" style="width: 152px" id="typeList">
+                                <label class="flex-item">Types</label>
+                            </div>
+                        </div>
+                        <div class="flex-container-row flex-align-left lightweight-border">
+                            <div class="flex-container-column flex-center list" style="width: 152px" id="subtypeList">
+                                <label class="flex-item">Subtypes</label>
+                            </div>
+                            <div class="flex-container-column flex-center" style="width: 210px" id="subtypes"></div>
+                        </div>
+                    </div>
+                    <div class="flex-container-row lightweight-border" id="resolve"></div>
+                </div>
+                <div class="flex-container-row" style="max-width: 400px">
+                    <div class="flex-container-row lightweight-border" id="dropbox"></div>
+                    <a href="http://mtgcardsmith.com/mtg-card-maker/" target="_blank">Magic The Gathering Card Smith</a>
+                    <div class="flex-container-row lightweight-border" id="rarity"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

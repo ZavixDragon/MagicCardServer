@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shadow Over Ravnica</title>
+        <link rel="stylesheet" type="text/css" href="../View/ViewCard.css">
+        <link rel="stylesheet" type="text/css" href="../Default.css">
+        <script type="text/javascript" src="../JOOcyScript.js"></script>
+        <script type="text/javascript" src="../Resources.js"></script>
+        <script type="text/javascript" src="../Database.js"></script>
+        <script type="text/javascript" src="../Default.js"></script>
+
+        <script type="text/javascript" src="../View/ViewCard.js"></script>
+    </head>
+    <body onload="viewCardOnLoad('none')">
+        <div class="flex-container-row flex-left" id="header"></div>
+        <div class="flex-container-column flex-center">
+            <div class="flex-container-row flex-center dark-border" id="content">
+                <div class="flex-item" id="image"></div>
+                <div class="flex-center flex-container-column flex-align-left" style="width: 471px; min-height: 523px" id="details">
+                    <div class="flex-container-row flex-item flex-left" id="name">
+                        <label>Name:</label>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left" id="cost">
+                        <label>Cost:</label>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left" id="type">
+                        <label>Type:</label>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left" id="rarity">
+                        <label>Rarity:</label>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left">
+                        <label>Text:</label>
+                        <p style="max-width: 360px" id="text"></p>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left" id="stats">
+                        <label>Stats:</label>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left" id="loyalty">
+                        <label>Loyalty:</label>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left" id="author">
+                        <label>Author:</label>
+                    </div>
+                    <div class="flex-container-row flex-item flex-left" id="edit"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
