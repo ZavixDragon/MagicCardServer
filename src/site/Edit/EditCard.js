@@ -12,6 +12,7 @@ function editCardOnLoad(cardId) {
     this.editStats = new EditStats();
     this.editLoyalty = new EditLoyalty();
     this.editImage = new EditImage();
+    this.passwordInput = new InputPassword();
 
     document.getElementById("author").appendChild(this.editAuthor.initialize().arise());
     document.getElementById("name").appendChild(this.editName.initialize().arise());
@@ -36,6 +37,7 @@ function editCardOnLoad(cardId) {
     document.getElementById("stats").appendChild(statsElements[1].arise());
     document.getElementById("loyalty").appendChild(this.editLoyalty.initialize().arise());
     document.getElementById("dropbox").appendChild(this.editImage.initialize().arise());
+    document.getElementById("password").appendChild(this.passwordInput.initialize().arise());
 
     let saveButton = CreateButton((event) => {
         this.card.author = this.editAuthor.author;
@@ -50,16 +52,16 @@ function editCardOnLoad(cardId) {
         this.card.power = this.editStats.power;
         this.card.toughness = this.editStats.toughness;
         this.card.loyalty = this.editLoyalty.loyalty;
-        this.card.image = this.editImage.bytes;
+        this.card.image = escapeStr(this.editImage.bytes);
         this.card.isDeleted = false;
-        new Repo().write(this.card);
+        new API().writeCard(this.card, this.passwordInput.password);
         window.location.href = "/";
     });
     new Text("Save").attach(saveButton);
 
     let deleteButton = CreateButton((event) => {
         this.card.isDeleted = true;
-        new Repo().write(this.card);
+        new API().writeCard(this.card);
         window.location.href = "/";
     });
     new Text("Delete").attach(deleteButton);
@@ -70,7 +72,7 @@ function editCardOnLoad(cardId) {
     document.getElementById("resolve").appendChild(saveButton.arise());
 
     if (cardId !== "none") {
-        new Repo().read(cardId, (card) => {
+        new API().readCard(cardId, (card) => {
             this.card = card;
             this.editAuthor.setAuthor(this.card.author);
             this.editName.setName(this.card.name);
@@ -81,7 +83,7 @@ function editCardOnLoad(cardId) {
             this.editText.setText(this.card.text);
             this.editStats.setStats(this.card.power, this.card.toughness);
             this.editLoyalty.setLoyalty(this.card.loyalty);
-            this.editImage.setImage(this.card.image);
+            this.editImage.setImage(unescapeStr(this.card.image));
         });
         document.getElementById("resolve").appendChild(deleteButton.arise());
     } else {

@@ -19,3 +19,11 @@ function setBackground() {
     let url = resources.backgrounds[Math.floor(Math.random()*resources.backgrounds.length)];
     document.body.style = "background-image: url('" + url + "'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;"
 }
+
+function escapeStr(str) {
+    return str.replace(/\\|\"|\//g, "\$&");
+}
+
+function unescapeStr(str) {
+    return str.replace(/\\\\|\\\"|\\\//g, "$&".substring(1))
+}

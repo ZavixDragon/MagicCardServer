@@ -2,7 +2,7 @@
 
 function viewCardOnLoad(cardId) {
     onPageLoad();
-    new Repo().read(cardId, (card) => {
+    new API().readCard(cardId, (card) => {
         //Image
         document.getElementById("image").appendChild(createCardImage(card.image).arise());
         //Name

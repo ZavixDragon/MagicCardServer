@@ -23,7 +23,7 @@ class IndexPage {
         document.getElementById("subtype").appendChild(new SubtypeFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("author").appendChild(new AuthorFilter(this.filters, () => this.reload()).initialize().arise());
 
-        new Repo().readAll((card) => {
+        new API().readAllCards((card) => {
             this.cards.push(card);
             this.addCard(card);
         });

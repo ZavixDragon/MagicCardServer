@@ -158,6 +158,21 @@ input[type=text]:hover {
     background-color: #424242;
 }
 
+input[type=password] {
+    margin: 5px;
+    background-color: #303030;
+    width: 200px;
+    padding: 3px;
+    font-size: 24px;
+    color: #ffffff;
+    border-width: 1px;
+    border-color: #000000;
+}
+
+input[type=password]:hover {
+    background-color: #424242;
+}
+
 input[type=number] {
     margin: 5px;
     background-color: #303030;

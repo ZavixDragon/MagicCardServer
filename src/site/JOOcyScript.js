@@ -133,6 +133,12 @@ function CreateSpan() {
     return new Entity("span");
 }
 
+function CreatePasswordInput() {
+    let entity = new Entity("input");
+    new Type("password").attach(entity);
+    return entity;
+}
+
 //Traits
 
 function Style(style) {

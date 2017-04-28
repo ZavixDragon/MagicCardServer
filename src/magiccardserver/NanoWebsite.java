@@ -1,5 +1,7 @@
 package magiccardserver;
 
+import magiccardserver.controllers.Controller;
+
 import java.io.*;
 import java.util.*;
 import java.util.function.Function;
@@ -32,14 +34,14 @@ public class NanoWebsite {
         System.out.println(uri);
         String controllerName = uri.split("/")[1];
         return controllers.containsKey(controllerName)
-                ? NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, "text/html", controllers.get(controllerName).serve(uri))
+                ? controllers.get(controllerName).serve(session)
                 : NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, new MimeType(uri).get(), loadResource(uri));
     }
 
     private InputStream loadResource(String uri) {
-        if (new Resource(siteResourcePath + uri).get() == null)
+        if (new InputStreamFromFile(siteResourcePath + uri).get() == null)
             uri = new ExtractedUri(pageNotFoundPage).get();
-        return new Resource(siteResourcePath + uri).get();
+        return new InputStreamFromFile(siteResourcePath + uri).get();
     }
 
     private final class ExtractedUri {
@@ -59,18 +61,6 @@ public class NanoWebsite {
             if (uri.charAt(uri.length() - 1) == '/')
                 uri += "Index.html";
             return uri;
-        }
-    }
-
-    private final class Resource {
-        private final String name;
-
-        public Resource(String name) {
-            this.name = name;
-        }
-
-        public InputStream get() {
-            return getClass().getResourceAsStream(name);
         }
     }
 
