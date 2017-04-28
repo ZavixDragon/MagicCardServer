@@ -21,26 +21,29 @@
     <body onload="onIndexLoad()">
         <div class="flex-container-row flex-left" id="header"></div>
         <div class="flex-container-row flex-left flex-align-left">
-            <div class="flex-item flex-container-column flex-left dark-border">
-                <label>Filters</label>
-                <div class="flex-item flex-container-row" id="search">
-                    <label>Search:</label>
+            <div class="flex-container-column">
+                <div class="flex-item flex-container-column flex-left dark-border">
+                    <label>Filters</label>
+                    <div class="flex-item flex-container-row" id="search">
+                        <label>Search:</label>
+                    </div>
+                    <div class="flex-item flex-container-row" id="cmc">
+                        <label>Converted Mana Cost:</label>
+                    </div>
+                    <div class="flex-item flex-container-row" id="colors">
+                        <label>Colors:</label>
+                    </div>
+                    <div class="flex-item flex-container-row flex-left" style="width: 290px" id="type">
+                        <label>Types:</label>
+                    </div>
+                    <div class="flex-item flex-container-row" id="subtype">
+                        <label>Subtype:</label>
+                    </div>
+                    <div class="flex-item flex-container-row" id="author">
+                        <label>Author:</label>
+                    </div>
                 </div>
-                <div class="flex-item flex-container-row" id="cmc">
-                    <label>Converted Mana Cost:</label>
-                </div>
-                <div class="flex-item flex-container-row" id="colors">
-                    <label>Colors:</label>
-                </div>
-                <div class="flex-item flex-container-row flex-left" style="width: 290px" id="type">
-                    <label>Types:</label>
-                </div>
-                <div class="flex-item flex-container-row" id="subtype">
-                    <label>Subtype:</label>
-                </div>
-                <div class="flex-item flex-container-row" id="author">
-                    <label>Author:</label>
-                </div>
+                <div class="flex-item dark-border flex-container-row" style="width: 323px;" id="count"></div>
             </div>
             <div class="flex-item" id="cards"></div>
         </div>

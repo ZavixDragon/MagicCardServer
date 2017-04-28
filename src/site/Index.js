@@ -9,6 +9,8 @@ class IndexPage {
         this.filters = {};
         this.container = CreateContainer([]);
         this.cardContainer = this.container.getTraitByName("Contents");
+        this.currentlyShowing = CreateLabel("Currently Showing Cards: 0");
+        this.count = 0;
 
         new Style("flex-container-row flex-center dark-border").attach(this.container);
         this.filters["deleted"] = ((card) => !card.isDeleted);
@@ -22,6 +24,7 @@ class IndexPage {
         document.getElementById("type").appendChild(new TypeFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("subtype").appendChild(new SubtypeFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("author").appendChild(new AuthorFilter(this.filters, () => this.reload()).initialize().arise());
+        document.getElementById("count").appendChild(this.currentlyShowing.arise());
 
         new API().readAllCards((card) => {
             this.cards.push(card);
@@ -35,6 +38,8 @@ class IndexPage {
             if (!filter(card))
                 return;
         }
+        this.count++;
+        this.currentlyShowing.getElement().innerHTML = "Currently Showing Cards: " + this.count;
         this.cardContainer.add(this.createCardImage(card.image, card._id));
     }
 
@@ -47,6 +52,8 @@ class IndexPage {
     }
 
     reload() {
+        this.count = 0;
+        this.currentlyShowing.getElement().innerHTML = "Currently Showing Cards: " + this.count;
         this.cardContainer.clear();
         for (let card of this.cards)
             this.addCard(card);
