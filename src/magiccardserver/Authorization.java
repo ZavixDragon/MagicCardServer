@@ -1,22 +1,25 @@
 package magiccardserver;
 
-import magiccardserver.WebRequests.ReadJsonWebRequest;
-import magiccardserver.dto.CouchDBDocuments;
-import magiccardserver.dto.CouchDBDocumentsWith;
-import magiccardserver.dto.Password;
-
-import java.security.MessageDigest;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Authorization {
     private final String password;
+    private final String path;
 
     public Authorization(String password) {
         this.password = password;
+        path = System.getenv("APPDATA") + "/MagicCardServer/Passwords.txt";
     }
 
     public boolean get() {
         String encryptedPassword = new EncryptedString(password).get();
-        CouchDBDocumentsWith passwords = new ReadJsonWebRequest<>("http://127.0.0.2:5984/passwords/_all_docs?include_docs=true", CouchDBDocumentsWith.class).resolve();
-        return passwords.getRows().stream().anyMatch(x -> x.getDoc().get("password").equals(encryptedPassword));
+        try {
+            return Files.readAllLines(Paths.get(path)).stream().anyMatch(x -> x.equals(encryptedPassword));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

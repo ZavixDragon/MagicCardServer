@@ -19,7 +19,7 @@ class ColorFilter {
 
     createButton(color) {
         let button = CreateButton();
-        new ExplicitStyle("background-image: url('" + resources.images[resources.mana[color]] + "');").attach(button);
+        new ExplicitStyle("background-image: url('" + resources.images[resources.symbols[color]] + "'); background-size: 30px;").attach(button);
 
         new Style("color-button flex-item").attach(button);
         new ClickEvent((event) => this.includesColor(button, color)).attach(button);
@@ -75,7 +75,7 @@ class ColorFilter {
     }
 
     doesCardContainColor(card, color) {
-        let colorLetter = resources.mana[color].substring(1, 2);
+        let colorLetter = resources.symbols[color].substring(1, 2);
         if (card.cost.some(x => x.includes(colorLetter)))
             return true;
         for (let symbol of card.text.match(/(<[^>]*>)/g))

@@ -1,16 +1,16 @@
 package magiccardserver;
 
-import magiccardserver.dto.Card;
+import magiccardserver.domain.Card;
 
 public class AuthorizedRequest {
     private String password;
     private Card card;
 
-    public String GetPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public Card GetCard() {
+    public Card getCard() {
         return card;
     }
 }

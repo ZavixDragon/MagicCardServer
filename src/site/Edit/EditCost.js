@@ -20,33 +20,55 @@ class EditCost {
 
     createOptions() {
         return CreateContainer([
-            this.createAddOption(resources.mana.x),
-            this.createSetColorlessOption(resources.mana.zero),
-            this.createSetColorlessOption(resources.mana.one),
-            this.createSetColorlessOption(resources.mana.two),
-            this.createSetColorlessOption(resources.mana.three),
-            this.createSetColorlessOption(resources.mana.four),
-            this.createSetColorlessOption(resources.mana.six),
-            this.createAddOption(resources.mana.black),
-            this.createAddOption(resources.mana.blue),
-            this.createAddOption(resources.mana.green),
-            this.createAddOption(resources.mana.red),
-            this.createAddOption(resources.mana.white),
-            this.createAddOption(resources.mana.blackGreen),
-            this.createAddOption(resources.mana.blackRed),
-            this.createAddOption(resources.mana.blueBlack),
-            this.createAddOption(resources.mana.blueRed),
-            this.createAddOption(resources.mana.greenBlue),
-            this.createAddOption(resources.mana.greenWhite),
-            this.createAddOption(resources.mana.redGreen),
-            this.createAddOption(resources.mana.redWhite),
-            this.createAddOption(resources.mana.whiteBlack),
-            this.createAddOption(resources.mana.whiteBlue),
-            this.createAddOption(resources.mana.blackGeneric),
-            this.createAddOption(resources.mana.blueGeneric),
-            this.createAddOption(resources.mana.greenGeneric),
-            this.createAddOption(resources.mana.redGeneric),
-            this.createAddOption(resources.mana.whiteGeneric),
+            this.createSetColorlessOption(resources.symbols.zero),
+            this.createSetColorlessOption(resources.symbols.one),
+            this.createSetColorlessOption(resources.symbols.two),
+            this.createSetColorlessOption(resources.symbols.three),
+            this.createSetColorlessOption(resources.symbols.four),
+            this.createSetColorlessOption(resources.symbols.five),
+            this.createSetColorlessOption(resources.symbols.six),
+            this.createSetColorlessOption(resources.symbols.seven),
+            this.createSetColorlessOption(resources.symbols.eight),
+            this.createSetColorlessOption(resources.symbols.nine),
+            this.createSetColorlessOption(resources.symbols.ten),
+            this.createSetColorlessOption(resources.symbols.eleven),
+            this.createSetColorlessOption(resources.symbols.twelve),
+            this.createSetColorlessOption(resources.symbols.thirteen),
+            this.createSetColorlessOption(resources.symbols.fourteen),
+            this.createSetColorlessOption(resources.symbols.fifteen),
+            this.createSetColorlessOption(resources.symbols.sixteen),
+            this.createSetColorlessOption(resources.symbols.seventeen),
+            this.createSetColorlessOption(resources.symbols.eighteen),
+            this.createSetColorlessOption(resources.symbols.nineteen),
+            this.createAddOption(resources.symbols.half),
+            this.createAddOption(resources.symbols.X),
+            this.createAddOption(resources.symbols.Y),
+            this.createAddOption(resources.symbols.Z),
+            this.createAddOption(resources.symbols.black),
+            this.createAddOption(resources.symbols.blue),
+            this.createAddOption(resources.symbols.green),
+            this.createAddOption(resources.symbols.red),
+            this.createAddOption(resources.symbols.white),
+            this.createAddOption(resources.symbols.blackGreen),
+            this.createAddOption(resources.symbols.blackRed),
+            this.createAddOption(resources.symbols.blueBlack),
+            this.createAddOption(resources.symbols.blueRed),
+            this.createAddOption(resources.symbols.greenBlue),
+            this.createAddOption(resources.symbols.greenWhite),
+            this.createAddOption(resources.symbols.redGreen),
+            this.createAddOption(resources.symbols.redWhite),
+            this.createAddOption(resources.symbols.whiteBlack),
+            this.createAddOption(resources.symbols.whiteBlue),
+            this.createAddOption(resources.symbols.blackGeneric),
+            this.createAddOption(resources.symbols.blueGeneric),
+            this.createAddOption(resources.symbols.greenGeneric),
+            this.createAddOption(resources.symbols.redGeneric),
+            this.createAddOption(resources.symbols.whiteGeneric),
+            this.createAddOption(resources.symbols.blackPhyrexian),
+            this.createAddOption(resources.symbols.bluePhyrexian),
+            this.createAddOption(resources.symbols.greenPhyrexian),
+            this.createAddOption(resources.symbols.redPhyrexian),
+            this.createAddOption(resources.symbols.whitePhyrexian),
         ]);
     }
 
@@ -68,12 +90,12 @@ class EditCost {
 
     setColorlessAmount(numberMana) {
         for (let i = 0; i < this.cost.length; i++) {
-            if (this.cost[i][0] === resources.mana.zero
-                || this.cost[i][0] === resources.mana.one
-                || this.cost[i][0] === resources.mana.two
-                || this.cost[i][0] === resources.mana.three
-                || this.cost[i][0] === resources.mana.four
-                || this.cost[i][0] === resources.mana.six) {
+            if (this.cost[i][0] === resources.symbols.zero
+                || this.cost[i][0] === resources.symbols.one
+                || this.cost[i][0] === resources.symbols.two
+                || this.cost[i][0] === resources.symbols.three
+                || this.cost[i][0] === resources.symbols.four
+                || this.cost[i][0] === resources.symbols.six) {
                 this.removeCost(this.cost[i][0], this.cost[i][1]);
             }
         }

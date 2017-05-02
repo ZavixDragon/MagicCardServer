@@ -1,6 +1,9 @@
 class InputPassword {
     constructor() {
-        this.password = document.cookie.split("=")[1].split(";")[0];
+        if (document.cookie === undefined || document.cookie === "")
+            this.password = "";
+        else
+            this.password = document.cookie.split("=")[1].split(";")[0];
     }
 
     initialize() {

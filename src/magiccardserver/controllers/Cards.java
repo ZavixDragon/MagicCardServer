@@ -5,17 +5,22 @@ import magiccardserver.*;
 import magiccardserver.WebRequests.ReadJsonWebRequest;
 import magiccardserver.WebRequests.ReadWebRequest;
 import magiccardserver.WebRequests.ReadWriteJsonWebRequest;
-import magiccardserver.WebRequests.WriteJsonWebRequest;
-import magiccardserver.dto.Card;
 import magiccardserver.dto.CouchDBDocuments;
 import magiccardserver.dto.CouchDBWriteResponse;
 
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Cards implements Controller {
     private final Gson gson;
+    private final String path;
 
     public Cards() {
         this(new Gson());
@@ -23,36 +28,57 @@ public class Cards implements Controller {
 
     public Cards(Gson gson) {
         this.gson = gson;
+        path = System.getenv("APPDATA") + "\\MagicCardServer\\Cards";
     }
 
     public String getDomain() { return "Cards"; }
 
     public NanoHTTPD.Response serve(NanoHTTPD.IHTTPSession session) {
+        ensureDirectoryExists();
         String content = new InputStreamToString(session.getInputStream()).get();
         String webCall = session.getUri().split("/")[session.getUri().split("/").length - 1];
         if (webCall.equalsIgnoreCase("readallcards"))
             return NanoHTTPD.newFixedLengthResponse(gson.toJson(readAllIds()));
         if (webCall.equalsIgnoreCase("readcard"))
-            return NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, "application/json", readCard(content));
+            return NanoHTTPD.newFixedLengthResponse(readCard(content));
         if (webCall.equalsIgnoreCase("writecard"))
             return NanoHTTPD.newFixedLengthResponse(gson.toJson(writeCard(gson.fromJson(content, AuthorizedRequest.class))));
         else
             throw new RuntimeException(webCall + "is an invalid API call");
     }
 
-    private boolean writeCard(AuthorizedRequest request) {
-        if (!new Authorization(request.GetPassword()).get())
-            return false;
-        CouchDBWriteResponse response = new ReadWriteJsonWebRequest<>("http://127.0.0.2:5984/cards", request.GetCard(), CouchDBWriteResponse.class, "POST").resolve();
-        return response.isOk();
+    private void ensureDirectoryExists() {
+        File file1 = new File(System.getenv("APPDATA") + "\\MagicCardServer");
+        if (!file1.exists() || !file1.isDirectory())
+            file1.mkdir();
+
+        File file2 = new File(path);
+        if (!file2.exists() || !file2.isDirectory())
+            file2.mkdir();
     }
 
-    private InputStream readCard(String id) {
-        return new ReadWebRequest("http://127.0.0.2:5984/cards/" + id).resolve();
+    private boolean writeCard(AuthorizedRequest request) {
+        if (!new Authorization(request.getPassword()).get())
+            return false;
+        try {
+            Files.write(Paths.get(path + "\\" + request.getCard().getId()), gson.toJson(request.getCard()).getBytes());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private String readCard(String id) {
+        try {
+            return new String(Files.readAllBytes(Paths.get(path + "\\" + id)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     private List<String> readAllIds() {
-        CouchDBDocuments docs = new ReadJsonWebRequest<>("http://127.0.0.2:5984/cards/_all_docs", CouchDBDocuments.class).resolve();
-        return docs.getRows().stream().map(x -> x.getKey()).collect(Collectors.toList());
+        return Arrays.stream(new File(path).listFiles()).map(x -> x.getName()).collect(Collectors.toList());
     }
 }
