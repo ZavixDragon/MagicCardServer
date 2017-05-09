@@ -61,7 +61,7 @@ function editCardOnLoad(cardId) {
 
     let deleteButton = CreateButton((event) => {
         this.card.isDeleted = true;
-        new API().writeCard(this.card);
+        new API().writeCard(this.card, this.passwordInput.password);
         window.location.href = "/";
     });
     new Text("Delete").attach(deleteButton);

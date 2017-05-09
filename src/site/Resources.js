@@ -1,6 +1,7 @@
 class Resources {
     constructor() {
-        let imagePath = "../images/";
+        let basePath = "http://" + window.location.href.split('/')[2] + "/";
+        let imagePath = "images/";
         let symbolPath = "symbols/";
         let backgroundPath = "background/";
 
@@ -64,79 +65,79 @@ class Resources {
         this.title = "Shadow Over Ravnica";
 
         let images = {};
-        images[this.symbols.zero] = imagePath + symbolPath + "0.svg";
-        images[this.symbols.one] = imagePath + symbolPath + "1.svg";
-        images[this.symbols.two] = imagePath + symbolPath + "2.svg";
-        images[this.symbols.three] = imagePath + symbolPath + "3.svg";
-        images[this.symbols.four] = imagePath + symbolPath + "4.svg";
-        images[this.symbols.five] = imagePath + symbolPath + "5.svg";
-        images[this.symbols.six] = imagePath + symbolPath + "6.svg";
-        images[this.symbols.seven] = imagePath + symbolPath + "7.svg";
-        images[this.symbols.eight] = imagePath + symbolPath + "8.svg";
-        images[this.symbols.nine] = imagePath + symbolPath + "9.svg";
-        images[this.symbols.ten] = imagePath + symbolPath + "10.svg";
-        images[this.symbols.eleven] = imagePath + symbolPath + "11.svg";
-        images[this.symbols.twelve] = imagePath + symbolPath + "12.svg";
-        images[this.symbols.thirteen] = imagePath + symbolPath + "13.svg";
-        images[this.symbols.fourteen] = imagePath + symbolPath + "14.svg";
-        images[this.symbols.fifteen] = imagePath + symbolPath + "15.svg";
-        images[this.symbols.sixteen] = imagePath + symbolPath + "16.svg";
-        images[this.symbols.seventeen] = imagePath + symbolPath + "17.svg";
-        images[this.symbols.eighteen] = imagePath + symbolPath + "18.svg";
-        images[this.symbols.nineteen] = imagePath + symbolPath + "19.svg";
-        images[this.symbols.twenty] = imagePath + symbolPath + "20.svg";
-        images[this.symbols.half] = imagePath + symbolPath + "Half.svg";
-        images[this.symbols.infinity] = imagePath + symbolPath + "Infinity.svg";
-        images[this.symbols.X] = imagePath + symbolPath + "X.svg";
-        images[this.symbols.Y] = imagePath + symbolPath + "Y.svg";
-        images[this.symbols.Z] = imagePath + symbolPath + "Z.svg";
-        images[this.symbols.black] = imagePath + symbolPath + "Black.svg";
-        images[this.symbols.blackGreen] = imagePath + symbolPath + "BlackGreen.svg";
-        images[this.symbols.blackPhyrexian] = imagePath + symbolPath + "BlackPhyrexian.svg";
-        images[this.symbols.blackRed] = imagePath + symbolPath + "BlackRed.svg";
-        images[this.symbols.blue] = imagePath + symbolPath + "Blue.svg";
-        images[this.symbols.blueBlack] = imagePath + symbolPath + "BlueBlack.svg";
-        images[this.symbols.bluePhyrexian] = imagePath + symbolPath + "BluePhyrexian.svg";
-        images[this.symbols.blueRed] = imagePath + symbolPath + "BlueRed.svg";
-        images[this.symbols.colorless] = imagePath + symbolPath + "Colorless.svg";
-        images[this.symbols.blackGeneric] = imagePath + symbolPath + "GenericBlack.svg";
-        images[this.symbols.blueGeneric] = imagePath + symbolPath + "GenericBlue.svg";
-        images[this.symbols.greenGeneric] = imagePath + symbolPath + "GenericGreen.svg";
-        images[this.symbols.redGeneric] = imagePath + symbolPath + "GenericRed.svg";
-        images[this.symbols.whiteGeneric] = imagePath + symbolPath + "GenericWhite.svg";
-        images[this.symbols.green] = imagePath + symbolPath + "Green.svg";
-        images[this.symbols.greenBlue] = imagePath + symbolPath + "GreenBlue.svg";
-        images[this.symbols.greenPhyrexian] = imagePath + symbolPath + "GreenPhyrexian.svg";
-        images[this.symbols.greenWhite] = imagePath + symbolPath + "GreenWhite.svg";
-        images[this.symbols.red] = imagePath + symbolPath + "Red.svg";
-        images[this.symbols.redGreen] = imagePath + symbolPath + "RedGreen.svg";
-        images[this.symbols.redPhyrexian] = imagePath + symbolPath + "RedPhyrexian.svg";
-        images[this.symbols.redWhite] = imagePath + symbolPath + "RedWhite.svg";
-        images[this.symbols.white] = imagePath + symbolPath + "White.svg";
-        images[this.symbols.whiteBlack] = imagePath + symbolPath + "WhiteBlack.svg";
-        images[this.symbols.whiteBlue] = imagePath + symbolPath + "WhiteBlue.svg";
-        images[this.symbols.whitePhyrexian] = imagePath + symbolPath + "WhitePhyrexian.svg";
-        images[this.symbols.tap] = imagePath + symbolPath + "Tap.svg";
-        images[this.symbols.untap] = imagePath + symbolPath + "Untap.svg";
-        images[this.title] = imagePath + "title.png";
+        images[this.symbols.zero] = basePath + imagePath + symbolPath + "0.svg";
+        images[this.symbols.one] = basePath + imagePath + symbolPath + "1.svg";
+        images[this.symbols.two] = basePath + imagePath + symbolPath + "2.svg";
+        images[this.symbols.three] = basePath + imagePath + symbolPath + "3.svg";
+        images[this.symbols.four] = basePath + imagePath + symbolPath + "4.svg";
+        images[this.symbols.five] = basePath + imagePath + symbolPath + "5.svg";
+        images[this.symbols.six] = basePath + imagePath + symbolPath + "6.svg";
+        images[this.symbols.seven] = basePath + imagePath + symbolPath + "7.svg";
+        images[this.symbols.eight] = basePath + imagePath + symbolPath + "8.svg";
+        images[this.symbols.nine] = basePath + imagePath + symbolPath + "9.svg";
+        images[this.symbols.ten] = basePath + imagePath + symbolPath + "10.svg";
+        images[this.symbols.eleven] = basePath + imagePath + symbolPath + "11.svg";
+        images[this.symbols.twelve] = basePath + imagePath + symbolPath + "12.svg";
+        images[this.symbols.thirteen] = basePath + imagePath + symbolPath + "13.svg";
+        images[this.symbols.fourteen] = basePath + imagePath + symbolPath + "14.svg";
+        images[this.symbols.fifteen] = basePath + imagePath + symbolPath + "15.svg";
+        images[this.symbols.sixteen] = basePath + imagePath + symbolPath + "16.svg";
+        images[this.symbols.seventeen] = basePath + imagePath + symbolPath + "17.svg";
+        images[this.symbols.eighteen] = basePath + imagePath + symbolPath + "18.svg";
+        images[this.symbols.nineteen] = basePath + imagePath + symbolPath + "19.svg";
+        images[this.symbols.twenty] = basePath + imagePath + symbolPath + "20.svg";
+        images[this.symbols.half] = basePath + imagePath + symbolPath + "Half.svg";
+        images[this.symbols.infinity] = basePath + imagePath + symbolPath + "Infinity.svg";
+        images[this.symbols.X] = basePath + imagePath + symbolPath + "X.svg";
+        images[this.symbols.Y] = basePath + imagePath + symbolPath + "Y.svg";
+        images[this.symbols.Z] = basePath + imagePath + symbolPath + "Z.svg";
+        images[this.symbols.black] = basePath + imagePath + symbolPath + "Black.svg";
+        images[this.symbols.blackGreen] = basePath + imagePath + symbolPath + "BlackGreen.svg";
+        images[this.symbols.blackPhyrexian] = basePath + imagePath + symbolPath + "BlackPhyrexian.svg";
+        images[this.symbols.blackRed] = basePath + imagePath + symbolPath + "BlackRed.svg";
+        images[this.symbols.blue] = basePath + imagePath + symbolPath + "Blue.svg";
+        images[this.symbols.blueBlack] = basePath + imagePath + symbolPath + "BlueBlack.svg";
+        images[this.symbols.bluePhyrexian] = basePath + imagePath + symbolPath + "BluePhyrexian.svg";
+        images[this.symbols.blueRed] = basePath + imagePath + symbolPath + "BlueRed.svg";
+        images[this.symbols.colorless] = basePath + imagePath + symbolPath + "Colorless.svg";
+        images[this.symbols.blackGeneric] = basePath + imagePath + symbolPath + "GenericBlack.svg";
+        images[this.symbols.blueGeneric] = basePath + imagePath + symbolPath + "GenericBlue.svg";
+        images[this.symbols.greenGeneric] = basePath + imagePath + symbolPath + "GenericGreen.svg";
+        images[this.symbols.redGeneric] = basePath + imagePath + symbolPath + "GenericRed.svg";
+        images[this.symbols.whiteGeneric] = basePath + imagePath + symbolPath + "GenericWhite.svg";
+        images[this.symbols.green] = basePath + imagePath + symbolPath + "Green.svg";
+        images[this.symbols.greenBlue] = basePath + imagePath + symbolPath + "GreenBlue.svg";
+        images[this.symbols.greenPhyrexian] = basePath + imagePath + symbolPath + "GreenPhyrexian.svg";
+        images[this.symbols.greenWhite] = basePath + imagePath + symbolPath + "GreenWhite.svg";
+        images[this.symbols.red] = basePath + imagePath + symbolPath + "Red.svg";
+        images[this.symbols.redGreen] = basePath + imagePath + symbolPath + "RedGreen.svg";
+        images[this.symbols.redPhyrexian] = basePath + imagePath + symbolPath + "RedPhyrexian.svg";
+        images[this.symbols.redWhite] = basePath + imagePath + symbolPath + "RedWhite.svg";
+        images[this.symbols.white] = basePath + imagePath + symbolPath + "White.svg";
+        images[this.symbols.whiteBlack] = basePath + imagePath + symbolPath + "WhiteBlack.svg";
+        images[this.symbols.whiteBlue] = basePath + imagePath + symbolPath + "WhiteBlue.svg";
+        images[this.symbols.whitePhyrexian] = basePath + imagePath + symbolPath + "WhitePhyrexian.svg";
+        images[this.symbols.tap] = basePath + imagePath + symbolPath + "Tap.svg";
+        images[this.symbols.untap] = basePath + imagePath + symbolPath + "Untap.svg";
+        images[this.title] = basePath + imagePath + "title.png";
         this.images = images;
 
         this.backgrounds = [
-            imagePath + backgroundPath + "rakdos1.jpg",
-            imagePath + backgroundPath + "rakdos2.jpg",
-            imagePath + backgroundPath + "rakdos3.jpg",
-            imagePath + backgroundPath + "izzet1.jpg",
-            imagePath + backgroundPath + "izzet2.jpg",
-            imagePath + backgroundPath + "izzet3.jpg",
-            imagePath + backgroundPath + "simic1.jpg",
-            imagePath + backgroundPath + "simic2.jpg",
-            imagePath + backgroundPath + "simic3.jpg",
-            imagePath + backgroundPath + "selesnya1.jpg",
-            imagePath + backgroundPath + "selesnya2.jpg",
-            imagePath + backgroundPath + "selesnya3.jpg",
-            imagePath + backgroundPath + "orzhov1.jpg",
-            imagePath + backgroundPath + "orzhov2.jpg",
-            imagePath + backgroundPath + "orzhov3.jpg",
+            basePath + imagePath + backgroundPath + "rakdos1.jpg",
+            basePath + imagePath + backgroundPath + "rakdos2.jpg",
+            basePath + imagePath + backgroundPath + "rakdos3.jpg",
+            basePath + imagePath + backgroundPath + "izzet1.jpg",
+            basePath + imagePath + backgroundPath + "izzet2.jpg",
+            basePath + imagePath + backgroundPath + "izzet3.jpg",
+            basePath + imagePath + backgroundPath + "simic1.jpg",
+            basePath + imagePath + backgroundPath + "simic2.jpg",
+            basePath + imagePath + backgroundPath + "simic3.jpg",
+            basePath + imagePath + backgroundPath + "selesnya1.jpg",
+            basePath + imagePath + backgroundPath + "selesnya2.jpg",
+            basePath + imagePath + backgroundPath + "selesnya3.jpg",
+            basePath + imagePath + backgroundPath + "orzhov1.jpg",
+            basePath + imagePath + backgroundPath + "orzhov2.jpg",
+            basePath + imagePath + backgroundPath + "orzhov3.jpg",
         ];
     }
 }

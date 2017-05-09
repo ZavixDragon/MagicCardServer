@@ -5,6 +5,7 @@ import magiccardserver.*;
 import magiccardserver.WebRequests.ReadJsonWebRequest;
 import magiccardserver.WebRequests.ReadWebRequest;
 import magiccardserver.WebRequests.ReadWriteJsonWebRequest;
+import magiccardserver.domain.Card;
 import magiccardserver.dto.CouchDBDocuments;
 import magiccardserver.dto.CouchDBWriteResponse;
 
@@ -14,19 +15,22 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Cards implements Controller {
+    private final List<String> validPasswords;
     private final Gson gson;
     private final String path;
 
-    public Cards() {
-        this(new Gson());
+    public Cards(List<String> validPasswords) {
+        this(validPasswords, new Gson());
     }
 
-    public Cards(Gson gson) {
+    public Cards(List<String> validPasswords, Gson gson) {
+        this.validPasswords = validPasswords;
         this.gson = gson;
         path = System.getenv("APPDATA") + "\\MagicCardServer\\Cards";
     }
@@ -34,15 +38,16 @@ public class Cards implements Controller {
     public String getDomain() { return "Cards"; }
 
     public NanoHTTPD.Response serve(NanoHTTPD.IHTTPSession session) {
-        ensureDirectoryExists();
-        String content = new InputStreamToString(session.getInputStream()).get();
-        String webCall = session.getUri().split("/")[session.getUri().split("/").length - 1];
+        new PerformanceCheckedAction(() -> ensureDirectoryExists(), "Ensured Directories Exist").run();
+        String webCall = session.getUri().split("/")[2];
         if (webCall.equalsIgnoreCase("readallcards"))
             return NanoHTTPD.newFixedLengthResponse(gson.toJson(readAllIds()));
-        if (webCall.equalsIgnoreCase("readcard"))
-            return NanoHTTPD.newFixedLengthResponse(readCard(content));
+        if (webCall.equalsIgnoreCase("readcard")) {
+            String card = readCard(session.getUri().split("/")[3]);
+            return (NanoHTTPD.Response) new PerformanceCheckedSupplier(() -> NanoHTTPD.newFixedLengthResponse(card), "Converted card string to content").get();
+        }
         if (webCall.equalsIgnoreCase("writecard"))
-            return NanoHTTPD.newFixedLengthResponse(gson.toJson(writeCard(gson.fromJson(content, AuthorizedRequest.class))));
+            return writeCard(session);
         else
             throw new RuntimeException(webCall + "is an invalid API call");
     }
@@ -57,28 +62,40 @@ public class Cards implements Controller {
             file2.mkdir();
     }
 
-    private boolean writeCard(AuthorizedRequest request) {
-        if (!new Authorization(request.getPassword()).get())
-            return false;
-        try {
-            Files.write(Paths.get(path + "\\" + request.getCard().getId()), gson.toJson(request.getCard()).getBytes());
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    private NanoHTTPD.Response writeCard(NanoHTTPD.IHTTPSession session) {
+        String content = (String) new PerformanceCheckedSupplier(() -> new InputStreamToString(session.getInputStream()).get(), "Read content as string").get();
+        AuthorizedRequest request = gson.fromJson(content, AuthorizedRequest.class);
+        if (!validPasswords.stream().anyMatch(x -> x.equals(request.getPassword())))
+            return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.UNAUTHORIZED, "text/plain", "Invalid Password, git gud noob!");
+        boolean result = writeCardToDisk(request.getCard());
+        return (NanoHTTPD.Response) new PerformanceCheckedSupplier(() -> NanoHTTPD.newFixedLengthResponse(result ? NanoHTTPD.Response.Status.ACCEPTED : NanoHTTPD.Response.Status.INTERNAL_ERROR, "text/plain", "Attempt to write card"), "Converted boolean to nano response").get();
+
+    }
+
+    private boolean writeCardToDisk(Card card) {
+        return (boolean)new PerformanceCheckedSupplier(() -> {
+            try {
+                Files.write(Paths.get(path + "\\" + card.getId()), gson.toJson(card).getBytes());
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }, "Wrote card to disk").get();
     }
 
     private String readCard(String id) {
-        try {
-            return new String(Files.readAllBytes(Paths.get(path + "\\" + id)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+        return (String) new PerformanceCheckedSupplier(() -> {
+            try {
+                return new String(Files.readAllBytes(Paths.get(path + "\\" + id)));
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }, "read card from IO system").get();
     }
 
     private List<String> readAllIds() {
-        return Arrays.stream(new File(path).listFiles()).map(x -> x.getName()).collect(Collectors.toList());
+        return (List<String>) new PerformanceCheckedSupplier(() -> Arrays.stream(new File(path).listFiles()).map(x -> x.getName()).collect(Collectors.toList()), "Read meta data from files").get();
     }
 }

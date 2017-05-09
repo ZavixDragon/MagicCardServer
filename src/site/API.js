@@ -9,7 +9,7 @@ class API {
         authorizedRequest.password = password;
         authorizedRequest.card = card;
         let request = new XMLHttpRequest();
-        request.onreadystatechange = () => console.log(request.responseText);
+        request.onreadystatechange = () => console.log(request);
         request.open("POST", this.path + "Cards/writeCard", true);
         request.setRequestHeader("Content-type", "application/json");
         request.send(JSON.stringify(authorizedRequest));
@@ -22,9 +22,9 @@ class API {
                 return;
             callback(JSON.parse(request.responseText));
         };
-        request.open("POST", this.path + "Cards/readCard", true);
+        request.open("GET", this.path + "Cards/readCard/" + cardId, true);
         request.setRequestHeader("Content-type", "text/plain");
-        request.send(cardId);
+        request.send();
     }
 
     readAllCards(singleCardCallback) {
