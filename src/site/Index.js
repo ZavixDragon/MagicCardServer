@@ -23,6 +23,7 @@ class IndexPage {
         document.getElementById("colors").appendChild(new ColorFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("type").appendChild(new TypeFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("subtype").appendChild(new SubtypeFilter(this.filters, () => this.reload()).initialize().arise());
+        document.getElementById("rarity").appendChild(new RarityFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("author").appendChild(new AuthorFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("count").appendChild(this.currentlyShowing.arise());
 
@@ -40,14 +41,31 @@ class IndexPage {
         }
         this.count++;
         this.currentlyShowing.getElement().innerHTML = "Currently Showing Cards: " + this.count;
-        this.cardContainer.add(this.createCardImage(card.image, card._id));
+        this.cardContainer.add(this.createCardDisplay(card));
+    }
+
+    createCardDisplay(card) {
+        let container = CreateContainer();
+        new Style("flex-container-column flex-item").attach(container);
+        let contents = container.getTraitByName("Contents");
+        contents.add(this.createCardImage(card.image, card._id));
+        contents.add(this.createCardName(card.name, card._id));
+        return container;
     }
 
     createCardImage(src, id) {
         let image = CreateImage(src);
-        new Style("card-image flex-item").attach(image);
+        new Style("card-image").attach(image);
         let link = CreateLink("/ViewCard/" + id);
         new Content(image).attach(link);
+        return link;
+    }
+
+    createCardName(name, id) {
+        let label = CreateLabel(name);
+        let link = CreateLink("/ViewCard/" + id);
+        new ExplicitStyle("margin-top: -5px").attach(link);
+        new Content(label).attach(link);
         return link;
     }
 

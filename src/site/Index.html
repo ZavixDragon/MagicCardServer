@@ -16,6 +16,7 @@
         <script type="text/javascript" src="../Filters/TypeFilter.js"></script>
         <script type="text/javascript" src="../Filters/SubtypeFilter.js"></script>
         <script type="text/javascript" src="../Filters/SearchFilter.js"></script>
+        <script type="text/javascript" src="../Filters/RarityFilter.js"></script>
         <script type="text/javascript" src="../Index.js"></script>
     </head>
     <body onload="onIndexLoad()">
@@ -39,13 +40,16 @@
                     <div class="flex-item flex-container-row" id="subtype">
                         <label>Subtype:</label>
                     </div>
+                    <div class="flex-item flex-container-row" id="rarity">
+                        <label>Rarity:</label>
+                    </div>
                     <div class="flex-item flex-container-row" id="author">
                         <label>Author:</label>
                     </div>
                 </div>
                 <div class="flex-item dark-border flex-container-row" style="width: 323px;" id="count"></div>
             </div>
-            <div class="flex-item" id="cards"></div>
+            <div class="flex-item" style="max-width: 1550px" id="cards"></div>
         </div>
     </body>
 </html>

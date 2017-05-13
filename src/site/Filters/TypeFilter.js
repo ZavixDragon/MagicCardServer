@@ -15,6 +15,7 @@ class TypeFilter {
             this.createTypeOption("Basic"),
             this.createTypeOption("Legendary"),
             this.createTypeOption("Planeswalker"),
+            this.createTypeOption("Artifact"),
         ]);
         new Style("flex-container-column flex-left").attach(container);
         return container;

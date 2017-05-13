@@ -78,7 +78,10 @@ class ColorFilter {
         let colorLetter = resources.symbols[color].substring(1, 2);
         if (card.cost.some(x => x.includes(colorLetter)))
             return true;
-        for (let symbol of card.text.match(/(<[^>]*>)/g))
+        let symbolsOfText = card.text.match(/(<[^>]*>)/g);
+        if (symbolsOfText === null)
+            return false;
+        for (let symbol of symbolsOfText)
             if (symbol.includes(colorLetter))
                 return true;
         return false;

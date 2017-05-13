@@ -10,7 +10,7 @@ class EditTypes {
     constructor() {
         this.types = [];
 
-        this.typeOptions = ["-", "Creature", "Sorcery", "Instant", "Enchantment", "Land", "Basic", "Legendary", "Planeswalker"];
+        this.typeOptions = ["-", "Creature", "Sorcery", "Instant", "Enchantment", "Land", "Basic", "Legendary", "Planeswalker", "Artifact"];
     }
 
     initialize() {
