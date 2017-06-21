@@ -1,16 +1,17 @@
 class API {
     constructor() {
-        let getUrl = window.location;
-        this.path = getUrl .protocol + "//" + getUrl.host + "/";
+        this.path = 'http://52.43.242.81:9039/';
     }
 
-    writeCard(card, password) {
+    writeCard(card, username, password) {
         let authorizedRequest = {};
-        authorizedRequest.password = password;
-        authorizedRequest.card = card;
+        authorizedRequest.Username = username;
+        authorizedRequest.Password = password;
+        authorizedRequest.Id = card.Id;
+        authorizedRequest.Content = card;
         let request = new XMLHttpRequest();
         request.onreadystatechange = () => console.log(request);
-        request.open("POST", this.path + "Cards/writeCard", true);
+        request.open("POST", this.path + "put", true);
         request.setRequestHeader("Content-type", "application/json");
         request.send(JSON.stringify(authorizedRequest));
     }
@@ -22,9 +23,9 @@ class API {
                 return;
             callback(JSON.parse(request.responseText));
         };
-        request.open("GET", this.path + "Cards/readCard/" + cardId, true);
-        request.setRequestHeader("Content-type", "text/plain");
-        request.send();
+        request.open("POST", this.path + "get", true);
+        request.setRequestHeader("Content-type", "application/json");
+        request.send("{ id: \"" + cardId + "\"}");
     }
 
     readAllCards(singleCardCallback) {
@@ -38,8 +39,9 @@ class API {
             this.readNextCard(singleCardCallback);
             this.readNextCard(singleCardCallback);
         };
-        request.open("GET", this.path + "Cards/readAllCards", true);
-        request.send();
+        request.open("POST", this.path + "list", true);
+        request.setRequestHeader("Content-type", "application/json");
+        request.send("{}");
     }
 
     readNextCard(singleCardCallback) {
