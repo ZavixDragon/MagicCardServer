@@ -12,6 +12,7 @@ function editCardOnLoad(cardId) {
     this.editStats = new EditStats();
     this.editLoyalty = new EditLoyalty();
     this.editImage = new EditImage();
+    this.usernameInput = new InputUsername();
     this.passwordInput = new InputPassword();
 
     document.getElementById("author").appendChild(this.editAuthor.initialize().arise());
@@ -37,6 +38,7 @@ function editCardOnLoad(cardId) {
     document.getElementById("stats").appendChild(statsElements[1].arise());
     document.getElementById("loyalty").appendChild(this.editLoyalty.initialize().arise());
     document.getElementById("dropbox").appendChild(this.editImage.initialize().arise());
+    document.getElementById("username").appendChild(this.usernameInput.initialize().arise());
     document.getElementById("password").appendChild(this.passwordInput.initialize().arise());
 
     let saveButton = CreateButton((event) => {
@@ -54,14 +56,14 @@ function editCardOnLoad(cardId) {
         this.card.loyalty = this.editLoyalty.loyalty;
         this.card.image = escapeStr(this.editImage.bytes);
         this.card.isDeleted = false;
-        new API().writeCard(this.card, this.passwordInput.password);
+        new API().writeCard(this.card, this.usernameInput.username, this.passwordInput.password);
         window.location.href = "/";
     });
     new Text("Save").attach(saveButton);
 
     let deleteButton = CreateButton((event) => {
         this.card.isDeleted = true;
-        new API().writeCard(this.card, this.passwordInput.password);
+        new API().writeCard(this.card, this.usernameInput.username, this.passwordInput.password);
         window.location.href = "/";
     });
     new Text("Delete").attach(deleteButton);
