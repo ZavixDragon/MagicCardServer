@@ -27,7 +27,7 @@ class IndexPage {
         document.getElementById("author").appendChild(new AuthorFilter(this.filters, () => this.reload()).initialize().arise());
         document.getElementById("count").appendChild(this.currentlyShowing.arise());
 
-        new API().readAllCards((card) => {
+        new API().getAllCards((card) => {
             this.cards.push(card);
             this.addCard(card);
         });

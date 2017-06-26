@@ -2,7 +2,7 @@
 
 function viewCardOnLoad(cardId) {
     onPageLoad();
-    new API().readCard(cardId, (card) => {
+    new API().getCard(cardId, (card) => {
         //Image
         document.getElementById("image").appendChild(createCardImage(card.image).arise());
         //Name

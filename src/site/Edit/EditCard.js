@@ -55,15 +55,13 @@ function editCardOnLoad(cardId) {
         this.card.toughness = this.editStats.toughness;
         this.card.loyalty = this.editLoyalty.loyalty;
         this.card.image = escapeStr(this.editImage.bytes);
-        this.card.isDeleted = false;
-        new API().writeCard(this.card, this.usernameInput.username, this.passwordInput.password);
+        new API().putCard(this.card, this.usernameInput.username, this.passwordInput.password);
         window.location.href = "/";
     });
     new Text("Save").attach(saveButton);
 
     let deleteButton = CreateButton((event) => {
-        this.card.isDeleted = true;
-        new API().writeCard(this.card, this.usernameInput.username, this.passwordInput.password);
+        new API().putCard(this.card, this.usernameInput.username, this.passwordInput.password);
         window.location.href = "/";
     });
     new Text("Delete").attach(deleteButton);
@@ -74,7 +72,7 @@ function editCardOnLoad(cardId) {
     document.getElementById("resolve").appendChild(saveButton.arise());
 
     if (cardId !== "none") {
-        new API().readCard(cardId, (card) => {
+        new API().getCard(cardId, (card) => {
             this.card = card;
             this.editAuthor.setAuthor(this.card.author);
             this.editName.setName(this.card.name);
