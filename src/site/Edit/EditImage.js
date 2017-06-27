@@ -8,6 +8,7 @@ function editImageOnLoad() {
 class EditImage {
     constructor() {
         this.bytes = "";
+        this.id = "";
     }
 
     initialize() {
@@ -23,12 +24,17 @@ class EditImage {
     }
 
     uploadImage() {
+        this.id = generateId();
         let element = this.fileInput.getElement();
         if (element.files && element.files[0]) {
             let reader = new FileReader();
             reader.onload = (event) => this.image.getElement().src = event.target.result;
             reader.readAsDataURL(element.files[0]);
         }
+    }
+
+    setId(id) {
+        this.id = id;
     }
 
     setImage(bytes) {

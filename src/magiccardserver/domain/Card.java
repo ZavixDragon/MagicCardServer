@@ -3,8 +3,7 @@ package magiccardserver.domain;
 import java.util.ArrayList;
 
 public class Card {
-    private String _id;
-    private String _rev;
+    private String id;
     private String author;
     private String name;
     private ArrayList<String> cost;
@@ -15,10 +14,10 @@ public class Card {
     private double power;
     private double toughness;
     private double loyalty;
-    private String image;
+    private String imageId;
     private boolean isDeleted;
 
     public String getId() {
-        return _id;
+        return id;
     }
 }

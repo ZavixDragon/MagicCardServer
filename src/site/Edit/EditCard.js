@@ -54,14 +54,15 @@ function editCardOnLoad(cardId) {
         this.card.power = this.editStats.power;
         this.card.toughness = this.editStats.toughness;
         this.card.loyalty = this.editLoyalty.loyalty;
-        this.card.image = escapeStr(this.editImage.bytes);
+        this.card.imageId = this.editImage.id;
         new API().putCard(this.card, this.usernameInput.username, this.passwordInput.password);
+        new API().putImage(escapeStr(this.editImage.bytes), this.editImage.id, this.usernameInput.username, this.passwordInput.password)
         window.location.href = "/";
     });
     new Text("Save").attach(saveButton);
 
     let deleteButton = CreateButton((event) => {
-        new API().putCard(this.card, this.usernameInput.username, this.passwordInput.password);
+        new API().removeCard(this.card.id, this.usernameInput.username, this.passwordInput.password);
         window.location.href = "/";
     });
     new Text("Delete").attach(deleteButton);
@@ -83,11 +84,15 @@ function editCardOnLoad(cardId) {
             this.editText.setText(this.card.text);
             this.editStats.setStats(this.card.power, this.card.toughness);
             this.editLoyalty.setLoyalty(this.card.loyalty);
-            this.editImage.setImage(unescapeStr(this.card.image));
+            this.editImage.setId(this.card.imageId);
+        }, (image) => {
+            this.editImage.setImage(unescapeStr(image));
         });
         document.getElementById("resolve").appendChild(deleteButton.arise());
     } else {
         this.card = {};
-        this.card._id = generateId();
+        this.card.id = generateId();
+        this.editImage.setId("custom-magic-card");
+        new API().getImage(this.editImage.Id, (image) => this.editImage.setImage(unescapeStr(image)));
     }
 }
